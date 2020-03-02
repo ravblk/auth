@@ -9,13 +9,12 @@ ENV GO111MODULE=on
 
 COPY go.mod .
 COPY go.sum .
+RUN go build -o auth .
 
 FROM alpine
 
-COPY --from=builder /go/src/auth /auth
+COPY --from=builder /go/src/auth/auth /auth
 
 EXPOSE  8080
 
 ENTRYPOINT ["/auth","migrate","up"]
-
-CMD ["/auth", "server"]

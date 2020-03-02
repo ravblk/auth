@@ -14,7 +14,7 @@ var ErrConfig = errors.New("Wrong config")
 
 type Service struct {
 	API   API
-	DB    pg.DBConfig
+	DB    *pg.Config
 	Debug bool
 }
 
@@ -28,9 +28,6 @@ func Read() (*Service, error) {
 	sc := &Service{}
 	svc := viper.New()
 
-	if err := svc.ReadInConfig(); err != nil {
-		return nil, err
-	}
 	svc.SetEnvPrefix("AUTH")
 	svc.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
 	//----------------

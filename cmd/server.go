@@ -1,4 +1,4 @@
-package cli
+package cmd
 
 import (
 	"auth/config"
@@ -7,6 +7,7 @@ import (
 	"auth/server/transport/http/handlers"
 	"auth/services"
 	"auth/services/users"
+	"auth/storage/pg"
 	"os"
 
 	"go.uber.org/zap"
@@ -51,14 +52,14 @@ func RunServer() {
 	if cfg.Debug {
 		atom.SetLevel(zap.DebugLevel)
 	}
-	db := pg.New(&log)
-	if err := db.Connect(cfg.DBConfig); err != nil {
+	db := pg.New(log)
+	if err := db.Connect(cfg.DB); err != nil {
 		log.Fatal("", zap.Error(err))
 	}
-	sessRep := repository.NewSessionRepository(&log, db)
-	usrRep := repository.NewUserRepository(&log, db)
+	sessRep := repository.NewSessionRepository(log, db)
+	usrRep := repository.NewUserRepository(log, db)
 
-	usrSvc := users.NewService(&cfg.API, &log, usrRep, sessRep)
+	usrSvc := users.NewService(log, &cfg.API, usrRep, sessRep)
 
 	authsvc := services.Auth{
 		UsrSvc: usrSvc,

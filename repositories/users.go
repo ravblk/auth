@@ -17,7 +17,7 @@ type usrRep struct {
 	log *zap.Logger
 }
 
-func NewUserRepositorycfg(log *zap.Logger, db *pg.Database) *usrRep {
+func NewUserRepository(log *zap.Logger, db *pg.Database) *usrRep {
 	return &usrRep{db: db, log: log}
 }
 

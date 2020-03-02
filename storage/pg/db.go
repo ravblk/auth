@@ -14,7 +14,7 @@ const (
 	ttlRetry = 1 * time.Second
 )
 
-type DBConfig struct {
+type Config struct {
 	Host         string `valid:"required"`
 	Port         string `valid:"required"`
 	User         string `valid:"required"`
@@ -34,7 +34,7 @@ type Database struct {
 func New(log *zap.Logger) *Database {
 	return &Database{log: log}
 }
-func (d *Database) Connect(dbc *DBConfig) error {
+func (d *Database) Connect(dbc *Config) error {
 	args := fmt.Sprintf(
 		"sslmode=%s host=%s port=%s user=%s password='%s' dbname=%s",
 		dbc.SSL,
