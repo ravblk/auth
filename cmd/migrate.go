@@ -73,7 +73,7 @@ var (
 				Id: "1",
 				Up: []string{
 					`CREATE TABLE users(
-					uuid           uuid    NOT NULL,
+					uid           uuid   PRIMARY KEY  NOT NULL,
 					email          text    NOT NULL,
 					password        text   NOT NULL,
 					first_name      text,
@@ -82,7 +82,7 @@ var (
 				 );`,
 					`CREATE TABLE sessions(
 					session_hash  text   PRIMARY KEY,
-					user_uuid           uuid references users(uuid),
+					user_id           uuid references users(uid),
 					ip_address      text not null,
 					user_agent text default '',
 					created_at  TIMESTAMP
@@ -106,10 +106,6 @@ func migrationInit() (*sql.DB, error) {
 	}
 
 	cfg, err := config.Read()
-	if err != nil {
-		log.Warn("", zap.Error(err))
-		return nil, err
-	}
 	if err != nil {
 		log.Warn("", zap.Error(errors.New("wrong cfg")))
 		return nil, err

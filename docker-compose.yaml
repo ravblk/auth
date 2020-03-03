@@ -16,6 +16,7 @@ services:
             AUTH_DB_USER: postgres
             AUTH_DB_PASSWORD: postgres
             AUTH_DB_DATABASENAME: auth_db
+            AUTH_DB_SSL: disable
             AUTH_DEBUG: "true"
         command: ["/auth", "server"]
     storage:

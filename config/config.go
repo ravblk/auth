@@ -27,6 +27,7 @@ type API struct {
 func Read() (*Service, error) {
 	sc := &Service{}
 	svc := viper.New()
+	svc.AutomaticEnv()
 
 	svc.SetEnvPrefix("AUTH")
 	svc.SetEnvKeyReplacer(strings.NewReplacer(".", "_"))
@@ -51,5 +52,6 @@ func Read() (*Service, error) {
 	if _, err = govalidator.ValidateStruct(sc); err != nil {
 		return nil, err
 	}
+
 	return sc, nil
 }
