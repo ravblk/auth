@@ -1,11 +1,11 @@
 package users
 
 import (
-	"auth/config"
 	"auth/generator"
-	"auth/model"
-	repository "auth/repositories"
-	"auth/services/users/passwords"
+	"auth/internal/config"
+	"auth/internal/model"
+	repository "auth/internal/repositories"
+	"auth/internal/services/users/passwords"
 	"context"
 
 	"github.com/pkg/errors"
@@ -15,8 +15,9 @@ import (
 )
 
 var (
-	ErrEmail = errors.New("incorrect email")
-	ErrAut   = errors.New("authentication forbidden")
+	ErrEmail     = errors.New("incorrect email")
+	ErrAut       = errors.New("authentication forbidden")
+	ErrEmailBusy = errors.New("email busy")
 )
 
 type service struct {
@@ -57,6 +58,13 @@ func (s *service) UserLogin(ctx context.Context, l *model.Login, ss *model.Sessi
 func (s *service) UserRegistration(ctx context.Context, u *model.User, ss *model.Session) error {
 	if !govalidator.IsEmail(u.Email) {
 		return ErrEmail
+	}
+	ur, err := s.usrRep.UserGet(ctx, u.Email)
+	if err != nil {
+		return err
+	}
+	if ur.UUID != "" {
+		return ErrEmailBusy
 	}
 	if err := passwords.Verify(u.Password); err != nil {
 		return err

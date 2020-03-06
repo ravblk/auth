@@ -1,8 +1,8 @@
 package http
 
 import (
-	"auth/server/transport/http/handlers"
-	"auth/server/transport/http/middleware"
+	"auth/internal/server/transport/http/handlers"
+	"auth/internal/server/transport/http/middleware"
 
 	"github.com/buaazp/fasthttprouter"
 	"github.com/valyala/fasthttp"

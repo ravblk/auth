@@ -1,7 +1,7 @@
 package users
 
 import (
-	"auth/model"
+	"auth/internal/model"
 	"context"
 )
 

@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"auth/services"
+	"auth/internal/services"
 	"encoding/json"
 	"errors"
 	"net/http"
@@ -33,10 +33,10 @@ func IPGet(ctx *fasthttp.RequestCtx) string {
 	return ctx.RemoteIP().String()
 }
 func UAGet(ctx *fasthttp.RequestCtx) (string, error) {
-	if ctx.Request.Header.Peek("User Agent") == nil {
+	if ctx.Request.Header.Peek("User-Agent") == nil {
 		return "", ErrUserAgent
 	}
-	return string(ctx.Request.Header.Peek("User Agent")), nil
+	return string(ctx.Request.Header.Peek("User-Agent")), nil
 }
 
 func (h *Handlers) responseError(ctx *fasthttp.RequestCtx, err error) {

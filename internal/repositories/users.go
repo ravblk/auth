@@ -1,9 +1,10 @@
 package repository
 
 import (
-	"auth/model"
-	"auth/storage/pg"
+	"auth/internal/model"
+	"auth/internal/storage/pg"
 	"context"
+	"database/sql"
 
 	"go.uber.org/zap"
 )
@@ -23,7 +24,7 @@ func NewUserRepository(log *zap.Logger, db *pg.Database) *usrRep {
 
 func (r *usrRep) UserPut(ctx context.Context, u *model.User) error {
 	if err := r.db.Client.QueryRowxContext(ctx, `INSERT INTO users(
-		uuid,
+		uid,
 		email,
 		password,
 		first_name,
@@ -36,7 +37,7 @@ func (r *usrRep) UserPut(ctx context.Context, u *model.User) error {
 		$3,
 		$4,
 		NOW()) 
-	returning uuid;`, u.Email, u.Password, u.FirstName, u.LastName).Scan(&u.UUID); err != nil {
+	returning uid;`, u.Email, u.Password, u.FirstName, u.LastName).Scan(&u.UUID); err != nil {
 		return err
 	}
 	return nil
@@ -46,7 +47,7 @@ func (r *usrRep) UserGet(ctx context.Context, email string) (*model.User, error)
 	u := &model.User{}
 	if err := r.db.Client.GetContext(ctx, u, `select * from  users
 	WHERE 
-		email = $1 `, email); err != nil {
+		email = $1 `, email); err != nil && err != sql.ErrNoRows {
 		return nil, err
 	}
 	return u, nil

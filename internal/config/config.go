@@ -4,7 +4,7 @@ import (
 	"errors"
 	"strings"
 
-	"auth/storage/pg"
+	"auth/internal/storage/pg"
 
 	"github.com/asaskevich/govalidator"
 	"github.com/spf13/viper"
@@ -21,7 +21,7 @@ type Service struct {
 type API struct {
 	Port               string `valid:"required"`
 	MaxRequestBodySize int    `valid:"required"`
-	TTL                int    `valid:"required"`
+	TTL                int64  `valid:"required"`
 }
 
 func Read() (*Service, error) {

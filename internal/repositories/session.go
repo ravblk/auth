@@ -1,8 +1,8 @@
 package repository
 
 import (
-	"auth/model"
-	"auth/storage/pg"
+	"auth/internal/model"
+	"auth/internal/storage/pg"
 	"context"
 
 	"go.uber.org/zap"
@@ -24,7 +24,7 @@ func NewSessionRepository(log *zap.Logger, db *pg.Database) *sessRep {
 func (r *sessRep) SessionPut(ctx context.Context, s *model.Session) error {
 	if err := r.db.Client.QueryRowxContext(ctx, `INSERT INTO sessions(
 		session_hash,
-		user_uuid,
+		user_id,
 		ip_address,
 		user_agent,
 		created_at)
@@ -34,7 +34,7 @@ func (r *sessRep) SessionPut(ctx context.Context, s *model.Session) error {
 		$3,
 		$4,
 		NOW()) 
-	returning guid;`, s.SessionHash, s.UserID, s.IP, s.UserAgent).Scan(&s.UserID); err != nil {
+	returning user_id;`, s.SessionHash, s.UserID, s.IP, s.UserAgent).Scan(&s.UserID); err != nil {
 		return err
 	}
 	return nil

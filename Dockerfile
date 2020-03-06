@@ -17,4 +17,3 @@ COPY --from=builder /go/src/auth/auth /auth
 
 EXPOSE  8080
 
-ENTRYPOINT ["/auth","migrate","up"]

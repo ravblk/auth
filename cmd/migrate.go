@@ -1,7 +1,7 @@
 package cmd
 
 import (
-	"auth/config"
+	"auth/internal/config"
 	"database/sql"
 	"errors"
 	"fmt"
@@ -86,10 +86,12 @@ var (
 					ip_address      text not null,
 					user_agent text default '',
 					created_at  TIMESTAMP
-				 );`},
+				 );`,
+					`CREATE EXTENSION pgcrypto;`},
 				Down: []string{
 					"DROP TABLE sessions;",
-					"DROP TABLE users;"},
+					"DROP TABLE users;",
+					"DROP EXTENSION pgcrypto;"},
 			},
 		},
 	}

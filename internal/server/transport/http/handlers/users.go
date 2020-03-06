@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"auth/model"
+	"auth/internal/model"
 	"context"
 	"encoding/json"
 	"time"
@@ -10,8 +10,10 @@ import (
 	"go.uber.org/zap"
 )
 
+const ttl = 10
+
 func (h *Handlers) Registration(ctx *fasthttp.RequestCtx) {
-	c, cancel := context.WithTimeout(context.Background(), time.Duration(h.s.Cfg.API.TTL)*time.Second)
+	c, cancel := context.WithTimeout(context.Background(), ttl*time.Second)
 	defer cancel()
 	req := &model.User{}
 	if err := json.Unmarshal(ctx.Request.Body(), req); err != nil {
@@ -38,7 +40,7 @@ func (h *Handlers) Registration(ctx *fasthttp.RequestCtx) {
 }
 
 func (h *Handlers) Session(ctx *fasthttp.RequestCtx) {
-	c, cancel := context.WithTimeout(context.Background(), time.Duration(h.s.Cfg.API.TTL)*time.Second)
+	c, cancel := context.WithTimeout(context.Background(), ttl*time.Second)
 	defer cancel()
 	req := &model.Login{}
 	if err := json.Unmarshal(ctx.Request.Body(), req); err != nil {

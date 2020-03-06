@@ -1,13 +1,13 @@
 package cmd
 
 import (
-	"auth/config"
-	repository "auth/repositories"
-	"auth/server/transport/http"
-	"auth/server/transport/http/handlers"
-	"auth/services"
-	"auth/services/users"
-	"auth/storage/pg"
+	"auth/internal/config"
+	repository "auth/internal/repositories"
+	"auth/internal/server/transport/http"
+	"auth/internal/server/transport/http/handlers"
+	"auth/internal/services"
+	"auth/internal/services/users"
+	"auth/internal/storage/pg"
 	"os"
 
 	"go.uber.org/zap"

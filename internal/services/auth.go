@@ -1,8 +1,8 @@
 package services
 
 import (
-	"auth/config"
-	"auth/services/users"
+	"auth/internal/config"
+	"auth/internal/services/users"
 
 	"go.uber.org/zap"
 )
