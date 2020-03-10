@@ -1,11 +1,11 @@
 package users
 
 import (
-	"auth/generator"
 	"auth/internal/config"
 	"auth/internal/model"
 	repository "auth/internal/repositories"
 	"auth/internal/services/users/passwords"
+	"auth/tools/generator"
 	"context"
 
 	"github.com/pkg/errors"
