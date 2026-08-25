@@ -8,10 +8,8 @@ import (
 	"auth/internal/services"
 	"auth/internal/services/users"
 	"auth/internal/storage/pg"
-	"os"
 
 	"go.uber.org/zap"
-	"go.uber.org/zap/zapcore"
 
 	_ "github.com/lib/pq"
 
@@ -32,16 +30,10 @@ func init() {
 }
 
 func RunServer() {
-	atom := zap.NewAtomicLevel()
-	encoderCfg := zap.NewProductionEncoderConfig()
-	encoderCfg.TimeKey = ""
-	encoderCfg.EncodeCaller = zapcore.ShortCallerEncoder
-	log := zap.New(zapcore.NewCore(
-		zapcore.NewJSONEncoder(encoderCfg),
-		zapcore.Lock(os.Stdout),
-		atom,
-	))
-
+	log, err := zap.NewProduction()
+	if err != nil {
+		log.Fatal("", zap.Error(err))
+	}
 	undo := zap.ReplaceGlobals(log)
 	defer undo()
 
@@ -50,16 +42,18 @@ func RunServer() {
 		log.Fatal("", zap.Error(err))
 	}
 	if cfg.Debug {
-		atom.SetLevel(zap.DebugLevel)
+		zap.L().Sync()
+		log = zap.NewNop()
+		zap.ReplaceGlobals(log)
 	}
 	db := pg.New(log)
 	if err := db.Connect(cfg.DB); err != nil {
 		log.Fatal("", zap.Error(err))
 	}
-	sessRep := repository.NewSessionRepository(log, db)
-	usrRep := repository.NewUserRepository(log, db)
+	sessionRepo := repository.NewSessionRepository(log, db)
+	userRepo := repository.NewUserRepository(log, db)
 
-	usrSvc := users.NewService(log, &cfg.API, usrRep, sessRep)
+	usrSvc := users.NewService(log, &cfg.API, userRepo, sessionRepo)
 
 	authsvc := services.Auth{
 		UsrSvc: usrSvc,
