@@ -1,19 +1,22 @@
-FROM golang:1.13.6-alpine3.11  as builder
-RUN apk add --update git alpine-sdk
+FROM golang:1.22-alpine AS builder
 
-ENV GOPATH=/go
+RUN apk add --no-cache git
 
-COPY . $GOPATH/src/auth/
-WORKDIR $GOPATH/src/auth/
-ENV GO111MODULE=on
+WORKDIR /build
 
-COPY go.mod .
-COPY go.sum .
-RUN go build -o auth .
+COPY go.mod go.sum ./
+RUN go mod download
 
-FROM alpine
+COPY . .
 
-COPY --from=builder /go/src/auth/auth /auth
+RUN CGO_ENABLED=0 go build -o auth .
 
-EXPOSE  8080
+FROM alpine:3.19
 
+RUN apk add --no-cache ca-certificates
+
+COPY --from=builder /build/auth /auth
+
+EXPOSE 8080
+
+ENTRYPOINT ["/auth"]
