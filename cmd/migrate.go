@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"errors"
 	"fmt"
+	"strings"
 
 	_ "github.com/lib/pq"
 
@@ -19,7 +20,7 @@ var (
 		Short: "migration db auth",
 		Run: func(cmd *cobra.Command, args []string) {
 			if len(args) == 0 {
-				zap.L().Fatal("Wrong arrgument enter up or down")
+				zap.L().Fatal("Wrong argument enter up or down")
 			}
 			switch args[0] {
 			case "up":
@@ -69,29 +70,29 @@ var (
 	}
 	migrations = &migrate.MemoryMigrationSource{
 		Migrations: []*migrate.Migration{
-			&migrate.Migration{
+			{
 				Id: "1",
 				Up: []string{
 					`CREATE TABLE users(
-					uid           uuid   PRIMARY KEY  NOT NULL,
-					email          text    NOT NULL,
-					password        text   NOT NULL,
-					first_name      text,
-					last_name 		text,
-					created_at  TIMESTAMP
+						uid           uuid   PRIMARY KEY  NOT NULL,
+						email          text    NOT NULL,
+						password        text   NOT NULL,
+						first_name      text,
+						last_name       text,
+						created_at  TIMESTAMP
 				 );`,
 					`CREATE TABLE sessions(
-					session_hash  text   PRIMARY KEY,
-					user_id           uuid references users(uid),
-					ip_address      text not null,
-					user_agent text default '',
-					created_at  TIMESTAMP
+						session_hash  text   PRIMARY KEY,
+						user_id           uuid references users(uid),
+						ip_address      text not null,
+						user_agent text default '',
+						created_at  TIMESTAMP
 				 );`,
 					`CREATE EXTENSION pgcrypto;`},
 				Down: []string{
-					"DROP TABLE sessions;",
-					"DROP TABLE users;",
-					"DROP EXTENSION pgcrypto;"},
+					`DROP EXTENSION pgcrypto;`,
+					`DROP TABLE sessions;`,
+					`DROP TABLE users;`},
 			},
 		},
 	}
@@ -112,13 +113,14 @@ func migrationInit() (*sql.DB, error) {
 		log.Warn("", zap.Error(errors.New("wrong cfg")))
 		return nil, err
 	}
+	password := strings.ReplaceAll(cfg.DB.Password, `'`, `\'`)
 	args := fmt.Sprintf(
 		"sslmode=%s host=%s port=%s user=%s password='%s' dbname=%s",
 		cfg.DB.SSL,
 		cfg.DB.Host,
 		cfg.DB.Port,
 		cfg.DB.User,
-		cfg.DB.Password,
+		password,
 		cfg.DB.DatabaseName,
 	)
 	postDB, err := sql.Open("postgres", args)

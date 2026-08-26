@@ -43,8 +43,9 @@ func RunServer() {
 	}
 	if cfg.Debug {
 		zap.L().Sync()
+		undo()
 		log = zap.NewNop()
-		zap.ReplaceGlobals(log)
+		undo = zap.ReplaceGlobals(log)
 	}
 	db := pg.New(log)
 	if err := db.Connect(cfg.DB); err != nil {
