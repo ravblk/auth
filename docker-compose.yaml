@@ -1,33 +1,36 @@
 version: "3"
 services:
-    api:
-        build: .
-        image: auth
-        depends_on:
-            - storage
-        ports:
-            - "127.0.0.1:8080:8080"
-        environment:
-            AUTH_API_PORT: 8080                         
-            AUTH_API_MAXREQUESTBODYSIZE: 4096
-            AUTH_API_TTL: 10
-            AUTH_DB_HOST: storage
-            AUTH_DB_PORT: 5432
-            AUTH_DB_USER: postgres
-            AUTH_DB_PASSWORD: postgres
-            AUTH_DB_DATABASENAME: auth_db
-            AUTH_DB_SSL: disable
-            AUTH_DEBUG: "true"
-        command: sh -c "/auth migrate up && /auth server"           
-    storage:
-        image: postgres
-        container_name: storage
-        restart: always
-        volumes:
-            - ./data/:/var/lib/postgresql/data
-        environment:
-            POSTGRES_USER: postgres
-            POSTGRES_PASSWORD: postgres
-            POSTGRES_DB: auth_db
-        ports:
-            - "127.0.0.1:5432:5432"
+  api:
+    build: .
+    image: auth
+    depends_on:
+      - storage
+    ports:
+      - "8080:8080"
+    environment:
+      AUTH_API_PORT: "8080"
+      AUTH_API_MAXREQUESTBODYSIZE: "4096"
+      AUTH_API_TTL: "10"
+      AUTH_DB_HOST: storage
+      AUTH_DB_PORT: "5432"
+      AUTH_DB_USER: postgres
+      AUTH_DB_PASSWORD: postgres
+      AUTH_DB_DATABASENAME: auth_db
+      AUTH_DB_SSL: "disable"
+      AUTH_DEBUG: "true"
+    command: /auth server
+
+  storage:
+    image: postgres:16-alpine
+    restart: always
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: auth_db
+    ports:
+      - "5432:5432"
+
+volumes:
+  pgdata:
