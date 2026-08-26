@@ -1,0 +1,56 @@
+{
+  "cli_version": "0.10.2",
+  "checkpoint_id": "01M0YD7Q9N6629P0MGVRKKT51P",
+  "session_id": "9e07ae74-553b-4546-8d55-94b0e4206a7b",
+  "strategy": "manual-commit",
+  "created_at": "2026-08-26T06:48:34.28166Z",
+  "branch": "master",
+  "checkpoints_count": 3,
+  "save_step_count": 2,
+  "files_touched": [
+    "cmd/migrate.go",
+    "cmd/server.go"
+  ],
+  "agent": "Claude Code",
+  "model": "MiniMaxAI/MiniMax-M2.5",
+  "turn_id": "4c0f5b839745",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 246929,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 0,
+    "output_tokens": 2688,
+    "api_call_count": 9
+  },
+  "session_metrics": {
+    "turn_count": 3
+  },
+  "initial_attribution": {
+    "calculated_at": "2026-08-26T06:48:34.143377Z",
+    "agent_lines": 21,
+    "agent_removed": 18,
+    "human_added": 0,
+    "human_modified": 0,
+    "human_removed": 0,
+    "total_committed": 21,
+    "total_lines_changed": 39,
+    "agent_percentage": 100,
+    "metric_version": 2
+  },
+  "prompt_attributions": [
+    {
+      "checkpoint_number": 1,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 0,
+      "agent_lines_removed": 0
+    },
+    {
+      "checkpoint_number": 2,
+      "user_lines_added": 0,
+      "user_lines_removed": 0,
+      "agent_lines_added": 18,
+      "agent_lines_removed": 17
+    }
+  ]
+}
