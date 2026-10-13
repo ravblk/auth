@@ -2,12 +2,6 @@
 
 Auth service with registration, authorization, and session management.
 
-## Run
-
-```bash
-go run .
-```
-
 ## Commands
 
 - `server` — start auth server
