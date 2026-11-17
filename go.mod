@@ -1,45 +1,38 @@
 module auth
 
-go 1.22
+go 1.27
 
 require (
-	github.com/asaskevich/govalidator v0.0.0-20200108200545-475eaeb16496
+	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
 	github.com/buaazp/fasthttprouter v0.1.1
-	github.com/jmoiron/sqlx v1.2.0
-	github.com/lib/pq v1.3.0
+	github.com/jmoiron/sqlx v1.4.0
+	github.com/lib/pq v1.12.3
 	github.com/pkg/errors v0.9.1
-	github.com/rubenv/sql-migrate v0.0.0-20200212082348-64f95ea68aa3
-	github.com/spf13/cobra v0.0.6
-	github.com/spf13/viper v1.6.2
-	github.com/valyala/fasthttp v1.9.0
-	go.uber.org/zap v1.14.0
+	github.com/rubenv/sql-migrate v1.8.1
+	github.com/spf13/cobra v1.10.2
+	github.com/spf13/viper v1.21.0
+	github.com/valyala/fasthttp v1.79.0
+	go.uber.org/zap v1.28.0
 )
 
 require (
-	github.com/BurntSushi/toml v0.3.1 // indirect
-	github.com/fsnotify/fsnotify v1.4.7 // indirect
-	github.com/hashicorp/hcl v1.0.0 // indirect
-	github.com/inconshreveable/mousetrap v1.0.0 // indirect
-	github.com/klauspost/compress v1.8.2 // indirect
-	github.com/klauspost/cpuid v1.2.1 // indirect
-	github.com/magiconair/properties v1.8.1 // indirect
-	github.com/mitchellh/mapstructure v1.1.2 // indirect
-	github.com/pelletier/go-toml v1.2.0 // indirect
-	github.com/spf13/afero v1.1.2 // indirect
-	github.com/spf13/cast v1.3.0 // indirect
-	github.com/spf13/jwalterweatherman v1.0.0 // indirect
-	github.com/spf13/pflag v1.0.3 // indirect
-	github.com/subosito/gotenv v1.2.0 // indirect
+	github.com/fsnotify/fsnotify v1.10.1 // indirect
+	github.com/go-gorp/gorp/v3 v3.1.0 // indirect
+	github.com/go-viper/mapstructure/v2 v2.5.0 // indirect
+	github.com/google/go-cmp v0.7.0 // indirect
+	github.com/inconshreveable/mousetrap v1.1.0 // indirect
+	github.com/klauspost/compress v1.20.4 // indirect
+	github.com/molecule-man/go-brrr v1.3.1 // indirect
+	github.com/pelletier/go-toml/v2 v2.4.3 // indirect
+	github.com/sagikazarmark/locafero v0.12.0 // indirect
+	github.com/spf13/afero v1.15.0 // indirect
+	github.com/spf13/cast v1.10.0 // indirect
+	github.com/spf13/pflag v1.1.0 // indirect
+	github.com/stretchr/testify v1.12.1 // indirect
+	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/valyala/bytebufferpool v1.0.0 // indirect
-	go.uber.org/atomic v1.5.0 // indirect
-	go.uber.org/multierr v1.3.0 // indirect
-	go.uber.org/tools v0.0.0-20190618225709-2cfd321de3ee // indirect
-	golang.org/x/lint v0.0.0-20190930215403-16217165b5de // indirect
-	golang.org/x/sys v0.0.0-20190515120540-06a5c4944438 // indirect
-	golang.org/x/text v0.3.2 // indirect
-	golang.org/x/tools v0.0.0-20191029190741-b9c20aec41a5 // indirect
-	gopkg.in/gorp.v1 v1.7.2 // indirect
-	gopkg.in/ini.v1 v1.51.0 // indirect
-	gopkg.in/yaml.v2 v2.2.5 // indirect
-	honnef.co/go/tools v0.0.1-2019.2.3 // indirect
+	go.uber.org/multierr v1.11.0 // indirect
+	go.yaml.in/yaml/v3 v3.0.6 // indirect
+	golang.org/x/sys v0.50.0 // indirect
+	golang.org/x/text v0.44.0 // indirect
 )
