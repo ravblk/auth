@@ -18,7 +18,7 @@ Auth service with registration, authorization, and session management.
 
 ### Технологический стек
 
-- **Go 1.22** — основной язык
+- **Go 1.27** — основной язык
 - **PostgreSQL 16** — хранение пользователей и сессий
 - **FastHTTP** — высокопроизводительный HTTP-сервер
 - **SQL-migrate** — управление миграциями базы данных
