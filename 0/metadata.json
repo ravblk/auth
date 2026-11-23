@@ -1,0 +1,42 @@
+{
+  "cli_version": "0.13.4",
+  "checkpoint_id": "01M8439YEE1P0XR0M78BHYFW18",
+  "session_id": "7f5a5917-5671-40d7-8497-7f9f0a58271c",
+  "strategy": "manual-commit",
+  "created_at": "2026-11-23T11:40:20.145044Z",
+  "branch": "master",
+  "checkpoints_count": 2,
+  "save_step_count": 1,
+  "files_touched": [
+    "Dockerfile"
+  ],
+  "agent": "Cursor",
+  "model": "grok-4.7-high",
+  "turn_id": "fd8758397d1f",
+  "compact_transcript_start": 0,
+  "token_usage": {
+    "input_tokens": 15080,
+    "cache_creation_tokens": 0,
+    "cache_read_tokens": 117504,
+    "output_tokens": 1608,
+    "api_call_count": 2
+  },
+  "redaction": {
+    "replacements": 0,
+    "layers": {
+      "betterleaks": 0,
+      "connection_string": 0,
+      "credential_key": 0,
+      "credential_value": 0,
+      "credentialed_uri": 0,
+      "entropy": 0,
+      "key_context": 0,
+      "provider_token": 0,
+      "shell_stdin": 0
+    }
+  },
+  "session_metrics": {
+    "duration_ms": 63883,
+    "turn_count": 2
+  }
+}
